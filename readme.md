@@ -6,7 +6,7 @@ Imbalanced subgroups are widely prevalent in medical applications, resulting in 
 
 The Quasi-Pareto Improvement method can be broadly applied to imbalanced subgroup prediction problems in biomedical imaging, providing new insights for enhancing model generalization and addressing unfairness.
 
-![](https://github.com/fangdai-dear/QuasiParetoImprovement/scripts/Figure/figure2.png）
+![https://github.com/fangdai-dear/QuasiParetoImprovement/scripts/Figure/figure2.png](https://github.com/fangdai-dear/QuasiParetoImprovement/blob/18fdc17629e8b471657dda916554765205995347/scripts/Figure/figure.png)
 
 This repository contains:
 
@@ -25,7 +25,8 @@ This repository contains:
 
 ## Background
 
-1. 
+![https://github.com/fangdai-dear/QuasiParetoImprovement/scripts/Figure/figure2.png](https://github.com/fangdai-dear/QuasiParetoImprovement/blob/18fdc17629e8b471657dda916554765205995347/scripts/Figure/figure2.png)
+
 
 ## Install
 
@@ -36,10 +37,11 @@ $ pip install -r requirements.txt
 ```
 
 ## Datasets
-1. Chexpert chest radiograph multi-classification dataset
->
+1. MICCAI 2020 TN-SCUI ultrasound image dataset
+
 2. Chexpert chest radiograph multi-classification dataset
-3. ISIC2019 skin disease multi-classification dataset
+3.
+4. ISIC2019 skin disease multi-classification dataset
 ## Usage
 
 This  
