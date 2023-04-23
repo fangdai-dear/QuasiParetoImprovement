@@ -30,7 +30,7 @@ This repository contains:
 
 ## Install
 
-This project uses [node]( ) and [npm]( ). Go check them out if you don't have them locally installed.
+This project uses requirements.txt.
 
 ```sh
 $ pip install -r requirements.txt
