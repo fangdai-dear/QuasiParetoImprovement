@@ -95,6 +95,10 @@ $ sh ./main.sh
 │      ISIC_2019_Training_sex.csv
 │      ISIC_2019_valid.csv
 ```
+### Enhancements
+
+- [ ] The model schema diagram is updated later
+- [ ] Experimental results will be updated later
 
 ## Reference
 All references are listed in the article
