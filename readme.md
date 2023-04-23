@@ -61,7 +61,7 @@ $ pip install -r requirements.txt
 │          └─study1
 │                  view1_frontal.jpg
 ```
-4. ISIC2019 skin disease multi-classification dataset
+3. ISIC2019 skin disease multi-classification dataset
 ```     sh              
 ├─ISIC
 │  ├─ISIC_2018
@@ -71,6 +71,8 @@ $ pip install -r requirements.txt
 │          ISIC_0000000.jpg
 │          
 ```
+Partial thyroid ultrasonography data used in this study are subject to privacy restrictions, but may be anonymized and made available upon reasonable request to the corresponding author.
+
 ## Usage
 
 This  
@@ -94,13 +96,8 @@ $ sh ./main.sh
 │      ISIC_2019_valid.csv
 ```
 
-## Related Efforts
-
-## Maintainers
-
-### Contributors
-
+## Reference
+All references are listed in the article
 
 ## License
-
-[MIT](LICENSE) © Richard Littauer
+No License and copyrighted until work publication
