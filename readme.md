@@ -18,9 +18,8 @@ This repository contains:
 - [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
-- [Related Efforts](#related-efforts)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
+- [Enhancements](#enhancements)
+- [Reference](#reference)
 - [License](#license)
 
 ## Background
