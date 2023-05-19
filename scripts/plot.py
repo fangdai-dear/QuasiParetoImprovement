@@ -42,7 +42,7 @@ from sklearn.manifold import TSNE
 #         plt.ylim((0, 1.))
 #     plt.xticks(np.arange(1, 100, 10.0))
 #     plt.legend(loc="lower right", fontsize=8)
-#     plt.grid(linestyle=":", color="r")  # 绘制刻度线的网格线
+#     plt.grid(linestyle=":", color="r")  
 #     plt.savefig("./result/%s_%s.png" % (modelname, ylabel))
 #     plt.cla()
 
