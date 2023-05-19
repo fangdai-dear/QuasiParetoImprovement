@@ -146,7 +146,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--modelname", type=str, choices=["Thyroid_PF","Thyroid_PM","THYROID_TC","CXP_Age","CXP_Race","ISIC2019_Sex","ISIC2019_Age"], default="Thyroid_PHM")
+    parser.add_argument("--modelname", type=str, choices=["Thyroid_PF","Thyroid_PM","THYROID_TC","CXP_Age","CXP_Race","ISIC2019_Sex","ISIC2019_Age"], default="Thyroid_PF")
     parser.add_argument("--architecture", type=str, choices= ["resnet","densnet","efficientnet"], default="resnet")
     parser.add_argument("--modelload_path", type=str,  default= None)
     parser.add_argument("--imagepath", type=str,  default="./dataset/")
