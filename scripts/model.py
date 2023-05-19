@@ -176,6 +176,8 @@ def train_model(model, LabelPredictor, DomainClassifier,
             torch.cuda.empty_cache()     
             print()    
         print("learning rate = %.6f     time: %.1f sec" % (optimizer.param_groups[-1]['lr'], time.time() - start))
+        if epoch != 0:
+            scheduler.step()
         print()
 
         plotimage(train_auc_history, val_auc_history, test_maj_history, test_min_history, "AUC", modelname)        
