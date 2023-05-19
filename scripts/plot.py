@@ -68,7 +68,7 @@ def plotimage(train, val, test_maj, test_min, ylabel, modelname):
 
     plt.xticks(np.arange(1, 100, 10.0))
     plt.legend(loc="lower right", fontsize=8)
-    plt.grid(linestyle=":", color="r")  # 绘制刻度线的网格线
+    plt.grid(linestyle=":", color="r")  
     plt.savefig("./result/%s/%s_%s.png" % (modelname, modelname, ylabel))
     plt.cla()
 
@@ -115,26 +115,20 @@ def bootstrap_auc(label, output, classes, bootstraps=5, fold_size=200):
 
 
 def create_multi_bars(labels, datas1,base_auc,AUC,color,label,title, save, tick_step=1, group_gap=0.25, bar_gap=0):
-    '''
-    labels : x轴坐标标签序列
-    datas :数据集,二维列表,要求列表每个元素的长度必须与labels的长度一致
-    tick_step :默认x轴刻度步长为1,通过tick_step可调整x轴刻度步长。
-    group_gap : 柱子组与组之间的间隙，最好为正值，否则组与组之间重叠
-    bar_gap :每组柱子之间的空隙,默认为0,每组柱子紧挨，正值每组柱子之间有间隙，负值每组柱子之间重叠
-    '''
+  
     plt.grid(linestyle=":", color="g")
     plt.figure(dpi=2000, figsize=(7, 2.5))
-    # ticks为x轴刻度
+
     ticks = np.arange(len(labels)) * tick_step
-    # group_num为数据的组数，即每组柱子的柱子个数
+
     group_num = len(datas1)
-    # group_width为每组柱子的总宽度，group_gap 为柱子组与组之间的间隙。
+
     group_width = tick_step - group_gap
-    # bar_span为每组柱子之间在x轴上的距离，即柱子宽度和间隙的总和
+
     bar_span = group_width / group_num
-    # bar_width为每个柱子的实际宽度
+  
     bar_width = bar_span - bar_gap
-    # baseline_x为每组柱子第一个柱子的基准x轴位置，随后的柱子依次递增bar_span即可
+
     baseline_x = ticks - (group_width - bar_span) / 2
     
     plt.plot(0,base_auc[0],'*',color = 'red',markersize = 5.5,label = 'All')
