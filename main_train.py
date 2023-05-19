@@ -23,13 +23,15 @@ def main(args):
     imagepath = args.imagepath
     if modelname =='Thyroid_PF':
         label_num,subgroup_num = config.THYROID_PF()
-        Datasets = DATA.CXP_Datasets
+        Datasets = DATA.Thyroid_PF_Datasets
 
     if modelname =='Thyroid_PM':
         label_num,subgroup_num = config.THYROID_PM()
+        Datasets = DATA.Thyroid_PM_Datasets
 
     if modelname =='THYROID_TC':
         label_num,subgroup_num= config.THYROID_TC()
+        Datasets = DATA.Thyroid_TC_Datasets
 
     if modelname =='CXP_Age':
         label_num, subgroup_num = config.CXP_Age()
