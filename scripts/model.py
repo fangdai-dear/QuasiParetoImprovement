@@ -64,9 +64,9 @@ def train_model(model, LabelPredictor, DomainClassifier,
                     batch_size = inputs.shape[0]
                     with torch.set_grad_enabled(phase == 'train'):
                         # CNN feature extractor
-                        outputs_512 = model(inputs)
-                        outputs_out = LabelPredictor(outputs_512)
-                        outputs_domain = DomainClassifier(outputs_512)
+                        outputs_100 = model(inputs)
+                        outputs_out = LabelPredictor(outputs_100)
+                        outputs_domain = DomainClassifier(outputs_100)
                         try:
                             if phase =='train':
                                 outputs_maj_img, outputs_maj_lab, sub_maj, outputs_min_img, outputs_min_lab, sub_min = Divide(outputs_out, labels, subg)
@@ -84,8 +84,8 @@ def train_model(model, LabelPredictor, DomainClassifier,
                                     loss_y_maj = criterion(outputs_maj_img, outputs_maj_lab).cuda()
                                     loss_y_min = criterion(outputs_min_img, outputs_min_lab).cuda()
                                     loss_d = criterion(outputs_domain, subg).cuda()
-                                    loss_mmd = MMD(subggroup = subg, outputs = outputs_512).cuda()
-                                    loss_bss = BSS(outputs_512).cuda()
+                                    loss_mmd = MMD(subggroup = subg, outputs = outputs_100).cuda()
+                                    loss_bss = BSS(outputs_100).cuda()
                                     loss_y = (gamma * loss_y_maj + (1-gamma) * loss_y_min).cuda()
                                     gam_bss = 0.5
 
