@@ -35,20 +35,20 @@ label = ['No Finding',
             'Fracture',
             'Support Devices']
 
-df1 = pd.read_csv('/export/home/daifang/CXP/result/Male_age.txt', sep=',', names=label)
+df1 = pd.read_csv('./result/Male_age.txt', sep=',', names=label)
 data1 = []
 # for indexs in df1.index:
 #         rowData = df1.loc[indexs].values[0:14]
 #         rowData = rowData.tolist()
 #         data1.append(rowData)
-df2 = pd.read_csv('/export/home/daifang/CXP/result/Female_age.txt', sep=',', names=label)
+df2 = pd.read_csv('./result/Female_age.txt', sep=',', names=label)
 for indexs in df1.index:
         rowData = df2.loc[indexs].values[0:14]
         rowData = rowData.tolist()
         data1.append(rowData)
 AUC1 = []
-auc1 = pd.read_csv('/export/home/daifang/CXP/result/Male_Model_80-all/Male_Model_80-all_auc.txt', sep=',', names=label)
-auc2 = pd.read_csv('/export/home/daifang/CXP/result/Female_Model_80-all/Female_Model_80-all_auc.txt', sep=',', names=label)
+auc1 = pd.read_csv('./result/Male_Model_80-all/Male_Model_80-all_auc.txt', sep=',', names=label)
+auc2 = pd.read_csv(./result/Female_Model_80-all/Female_Model_80-all_auc.txt', sep=',', names=label)
 # for indexs in auc1.index:
 #         rowData = auc1.loc[indexs].values[0:14]
 #         rowData = rowData.tolist()
@@ -62,7 +62,7 @@ for indexs in auc2.index:
 # color1 = ['#CDB4DB','#FFC8DD','#FFAFFC','#BDE0FE']
 color1 = ['#CDB4DB','#FFC0BE','#FF82A9','#A2D2FF']
 text_label1 = [ 'Female:18-40 (9997)','Female:40-60 (17364)','Female:60-80 (21908)','Female:>80 (7840)']
-base_auc1 = [0.875,0.668,0.855,0.727,0.771,0.837,0.734,0.740,0.697,0.873,0.880,0.795,0.750,0.878]
+base_auc1 = []
 title1 = 'CXP datasets subgroup: Female 18-40, 40-60, 60-80, >80)'
-save1 = "/export/home/daifang/CXP/figure/test_age(female).png"
+save1 = "./figure/test_age(female).png"
 create_multi_bars(label, data1, base_auc1, AUC1, color1, text_label1, title1, save1, bar_gap=0.03)
