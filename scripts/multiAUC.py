@@ -134,28 +134,3 @@ def bootstrap_auc(label, output, classes, bootstraps=5, fold_size=1000):
             statistics[c][i] = AUROC1
     return statistics
     
-# if __name__ == '__main__':
-#     output = np.array([[1,0,0,0,1],
-#                         [1,1,0,1,0],
-#                         [0,1,0,0,1],
-#                         [1,0,1,0,1],
-#                         [1,0,1,1,1],
-#                         [0,0,0,0,1]
-#             ])
-
-#     label = np.array([ [1,0,1,0,1],
-#                         [1,1,0,0,0],
-#                         [0,1,0,0,1],
-#                         [0,1,0,0,1],
-#                         [0,0,1,0,1],
-#                         [1,0,0,0,0]
-#             ])
-
-#     myMetic = Metric(output,label)
-
-#     AUROC = myMetic.auROC() 
-#     ACC =  myMetic.accuracy_multiclass()
-#     print("AUROC: ",(AUROC))     
-#     print(": ",(auc)) 
-
-
