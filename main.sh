@@ -1,23 +1,25 @@
 # export MODELNAME='Thyroid_PF'
-# export ARCH="densnet"
+# export ARCH="resnet"
 # export IMAGEPATH="./dataset"
-# export TRAIN="CXP_train_age"
-# export VALID="CXP_valid_age"
-# export TEST="CXP_female_age" # CXP_test_age, CXP_male_age
+# export TRAIN="Thyroid_train_PF"
+# export VALID="Thyroid_valid_PF"
+# export TEST="Thyroid_test_PF" 
+# export BATCH=256
 
 # export MODELNAME='Thyroid_PM'
-# export ARCH="densnet"
+# export ARCH="resnet"
 # export IMAGEPATH="./dataset"
-# export TRAIN="CXP_train_age"
-# export VALID="CXP_valid_age"
-# export TEST="CXP_female_age" # CXP_test_age, CXP_male_age
+# export TRAIN="Thyroid_train_PM"
+# export VALID="Thyroid_valid_PM"
+# export TEST="Thyroid_test_PM" 
+# export BATCH=256
 
 # export MODELNAME='Thyroid_TC'
-# export ARCH="densnet"
+# export ARCH="resnet"
 # export IMAGEPATH="./dataset"
-# export TRAIN="CXP_train_age"
-# export VALID="CXP_valid_age"
-# export TEST="CXP_female_age" # CXP_test_age, CXP_male_age
+# export TRAIN="Thyroid_train_TC"
+# export VALID="Thyroid_valid_TC"
+# export TEST="Thyroid_test_TC"
 
 # export MODELNAME='CXP_Age'
 # export ARCH="densnet"
