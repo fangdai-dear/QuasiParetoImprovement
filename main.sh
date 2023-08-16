@@ -20,6 +20,7 @@
 # export TRAIN="Thyroid_train_TC"
 # export VALID="Thyroid_valid_TC"
 # export TEST="Thyroid_test_TC"
+# export BATCH=256
 
 # export MODELNAME='CXP_Age'
 # export ARCH="densnet"
@@ -27,7 +28,7 @@
 # export TRAIN="CXP_train_age"
 # export VALID="CXP_valid_age"
 # export TEST="CXP_female_age" 
-# export BATCH=64
+# export BATCH=124
 
 # export MODELNAME='CXP_Race'
 # export ARCH="densnet"
@@ -43,7 +44,7 @@
 # export TRAIN="ISIC_2019_Training_sex"
 # export VALID="ISIC_2019_valid"
 # export TEST="ISIC_2019_Test"
-# export BATCH=114
+# export BATCH=124
 
 # export MODELNAME='ISIC2019_Age'
 # export ARCH="efficientnet"
@@ -51,7 +52,7 @@
 # export TRAIN="ISIC_2019_Training_age"
 # export VALID="ISIC_2019_valid"
 # export TEST="ISIC_2019_Test" 
-# export BATCH=114
+# export BATCH=124
 
 python main_train.py \
     --modelname $MODELNAME   \
