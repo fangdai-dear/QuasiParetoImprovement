@@ -20,7 +20,7 @@ from scripts.fc import LabelPredictor, DomainClassifier
 
 def main(args):
     modelname = args.modelname
-    imagepath = args.imagepath
+    image_path = args.image_path
     if modelname =='Thyroid_PF':
         label_num,subgroup_num = config.THYROID_PF()
         Datasets = DATA.Thyroid_PF_Datasets
@@ -54,7 +54,6 @@ def main(args):
         net = models.resnet18(pretrained=True)  
         features = net.fc.in_features
         net.fc = nn.Sequential(
-            # nn.Linear(features, len(label_num)))
             nn.Linear(features, 100))
         
     if args.architecture =='densnet':
@@ -68,8 +67,6 @@ def main(args):
         feature = net._fc.in_features
         net._fc = nn.Sequential(nn.Linear(in_features=feature, out_features=100, bias=False))
       
-
-
     if os.path.exists('./modelsaved/%s' % modelname) == False:  
         os.makedirs('./modelsaved/%s' % modelname)
     if os.path.exists('./result/%s' % modelname) == False:  
@@ -82,17 +79,17 @@ def main(args):
     
     transformed_datasets = {}
     transformed_datasets['train'] = Datasets(
-        path_to_images=imagepath,
+        path_to_images=image_path,
         fold=args.train_data,
         PRED_LABEL=label_num,
         transform=data_transforms['train'])
     transformed_datasets['valid'] = Datasets(
-        path_to_images=imagepath,
+        path_to_images=image_path,
         fold=args.valid_data,
         PRED_LABEL=label_num,
         transform=data_transforms['valid'])
     transformed_datasets['test'] = Datasets(
-        path_to_images=imagepath,
+        path_to_images=image_path,
         fold=args.test_data,
         PRED_LABEL=label_num,
         transform=data_transforms['valid'])
@@ -105,12 +102,12 @@ def main(args):
         num_workers=24)
     dataloaders['valid'] = torch.utils.data.DataLoader(
         transformed_datasets['valid'],
-        batch_size=12,
+        batch_size=64,
         shuffle=False,
         num_workers=24)
     dataloaders['test'] = torch.utils.data.DataLoader(
         transformed_datasets['test'],
-        batch_size=12,
+        batch_size=64,
         shuffle=False,
         num_workers=24)
 
@@ -122,8 +119,8 @@ def main(args):
     device2 = torch.device("cpu" if torch.cuda.is_available() else "cpu")
 
     net = net.to(device)
-    fc_label= LabelPredictor(len(label_num)).to(device2)
-    fc_domain= DomainClassifier(len(subgroup_num)).to(device2)
+    fc_label= LabelPredictor(len(label_num)).to(device)
+    fc_domain= DomainClassifier(len(subgroup_num)).to(device)
     fc_label.initialize()
     fc_domain.initialize()
 
@@ -133,15 +130,17 @@ def main(args):
 
 
     if len(label_num)>2:
-        criterion = nn.BCELoss()
+        criterion = nn.BCEWithLogitsLoss()
     else:
         criterion = nn.CrossEntropyLoss()
 
+    gam_d = args.gamma_D
+    gam_mmd = args.gamma_MMD
     train_model(net, fc_label, fc_domain, 
                 dataloaders, label_num, subgroup_num, criterion, 
                 optimizer, optimizer_label, optimizer_domain,
+                gam_d, gam_mmd, 
                 args.num_epochs, modelname, device)
-
 
 
 if __name__ == '__main__':
@@ -149,13 +148,15 @@ if __name__ == '__main__':
     parser.add_argument("--modelname", type=str, choices=["Thyroid_PF","Thyroid_PM","THYROID_TC","CXP_Age","CXP_Race","ISIC2019_Sex","ISIC2019_Age"], default="Thyroid_PF")
     parser.add_argument("--architecture", type=str, choices= ["resnet","densnet","efficientnet"], default="resnet")
     parser.add_argument("--modelload_path", type=str,  default= None)
-    parser.add_argument("--imagepath", type=str,  default="./dataset/")
+    parser.add_argument("--image_path", type=str,  default="./dataset/")
     parser.add_argument("--train_data", type=str, default='thyroid_train')
     parser.add_argument("--valid_data", type=str, default='thyroid_valid')
     parser.add_argument("--test_data", type=str, default='thyroid_test')
     parser.add_argument("--learning_rate", type=float, default=0.0001)
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--num_epochs", type=int, default=100)
+    parser.add_argument("--gamma_D", type=float, default=0.2)
+    parser.add_argument("--gamma_MMD", type=float, default=0.8)
     args = parser.parse_args()
     main(args)
 
