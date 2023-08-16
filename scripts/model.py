@@ -71,7 +71,7 @@ def train_model(model, LabelPredictor, DomainClassifier,
                             if phase =='train':
                                 outputs_maj_img, outputs_maj_lab, sub_maj, outputs_min_img, outputs_min_lab, sub_min = Divide(outputs_out, labels, subg)
 
-                                if modelname == "Thyroid_PF":
+                                if modelname in ['Thyroid_PF', 'Thyroid_PM','Thyroid_TC']:
                                     data_auc_maj = roc_auc_score(outputs_maj_lab.cpu().detach().numpy(), outputs_maj_img.cpu().detach().numpy())
                                     data_auc_min = roc_auc_score(outputs_min_lab.cpu().detach().numpy(), outputs_min_img.cpu().detach().numpy())
                                 else:
