@@ -60,7 +60,7 @@ python main_train.py \
     --train_data $TRAIN   \
     --valid_data $VALID   \
     --test_data $TEST  \
-    --learning_rat 0.0001  \
+    --learning_rate 0.0001  \
     --batch_size $BATCH   \
     --num_epochs 1000 
 
