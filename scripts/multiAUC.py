@@ -128,9 +128,14 @@ def bootstrap_auc(label, output, classes, bootstraps=5, fold_size=1000):
                     Label =  np.array([X[b][1]])
                 Output = np.concatenate((Output, np.array([X[b][0]])),axis=0)
                 Label = np.concatenate((Label, np.array([X[b][1]])),axis=0)
-                
-            myMetic = Metric(Output,Label)
-            AUROC1, auc = myMetic.auROC()
-            statistics[c][i] = AUROC1
+            
+
+            # if "Throid" in modelname: 
+            data_auc = roc_auc_score(Label,Output)
+            statistics[c][i] = data_auc
+            # else:
+            #     myMetic = Metric(Output,Label)
+            #     AUROC1, auc = myMetic.auROC()
+            #     statistics[c][i] = AUROC1
     return statistics
     
