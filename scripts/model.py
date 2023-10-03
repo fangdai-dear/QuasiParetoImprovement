@@ -1,3 +1,5 @@
+from cmath import phase
+from doctest import FAIL_FAST
 import os
 import torch
 from torch.utils.data import DataLoader
@@ -59,14 +61,15 @@ def train_model(model, LabelPredictor, DomainClassifier,
                     inputs, labels, subg = data
                     inputs = Variable(inputs.to(device))
                     labels = Variable(labels.to(device)).float()
+                    print(labels)
                     subg = Variable(subg.to(device)).float()
                     optimizer.zero_grad(set_to_none=True) 
                     batch_size = inputs.shape[0]
                     with torch.set_grad_enabled(phase == 'train'):
                         # CNN feature extractor
-                        outputs_100 = model(inputs)
-                        outputs_out = LabelPredictor(outputs_100)
-                        outputs_domain = DomainClassifier(outputs_100)
+                        outputs_512 = model(inputs)
+                        outputs_out = LabelPredictor(outputs_512)
+                        outputs_domain = DomainClassifier(outputs_512)
                         try:
                             if phase =='train':
                                 outputs_maj_img, outputs_maj_lab, sub_maj, outputs_min_img, outputs_min_lab, sub_min = Divide(outputs_out, labels, subg)
@@ -84,8 +87,8 @@ def train_model(model, LabelPredictor, DomainClassifier,
                                     loss_y_maj = criterion(outputs_maj_img, outputs_maj_lab).cuda()
                                     loss_y_min = criterion(outputs_min_img, outputs_min_lab).cuda()
                                     loss_d = criterion(outputs_domain, subg).cuda()
-                                    loss_mmd = MMD(subggroup = subg, outputs = outputs_100).cuda()
-                                    loss_bss = BSS(outputs_100).cuda()
+                                    loss_mmd = MMD(subggroup = subg, outputs = outputs_512).cuda()
+                                    loss_bss = BSS(outputs_512).cuda()
                                     loss_y = (gamma * loss_y_maj + (1-gamma) * loss_y_min).cuda()
                                     gam_bss = 0.5
 
@@ -158,7 +161,7 @@ def train_model(model, LabelPredictor, DomainClassifier,
 
             if modelname in ['Thyroid_PF', 'Thyroid_PM','Thyroid_TC']:
                 data_auc = roc_auc_score(Label,Output)
-                data_auc_min = roc_auc_score(Label_maj, Output_maj)
+                data_auc_maj = roc_auc_score(Label_maj, Output_maj)
                 data_auc_min = roc_auc_score(Label_min, Output_min)                
                 epoch_loss = running_loss / Batch
                 statistics = bootstrap_auc(Label, Output, [0,1,2,3,4])
@@ -174,8 +177,8 @@ def train_model(model, LabelPredictor, DomainClassifier,
             else:
                 myMetic = Metric(Output,Label)
                 data_auc,auc = myMetic.auROC()
-                data_auc_maj = max(auc)
-                data_auc_min = min(auc) 
+                data_auc_maj = Metric(Output_maj,Label_maj).auROC()
+                data_auc_min = Metric(Output_min,Label_min).auROC()
                 epoch_loss = running_loss / Batch
                 statistics = bootstrap_auc(Label, Output, [0,1,2,3,4])
                 max_auc = np.max(statistics, axis=1).max()
@@ -233,4 +236,3 @@ def train_model(model, LabelPredictor, DomainClassifier,
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
     model.load_state_dict(best_model_wts)
-
