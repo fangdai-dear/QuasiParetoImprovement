@@ -20,7 +20,7 @@ from scripts.fc import LabelPredictor, DomainClassifier
 
 def main(args):
     modelname = args.modelname
-    image_path = args.image_path
+    imagepath = args.imagepath
     if modelname =='Thyroid_PF':
         label_num,subgroup_num = config.THYROID_PF()
         Datasets = DATA.Thyroid_PF_Datasets
@@ -79,17 +79,17 @@ def main(args):
     
     transformed_datasets = {}
     transformed_datasets['train'] = Datasets(
-        path_to_images=image_path,
+        path_to_images=imagepath,
         fold=args.train_data,
         PRED_LABEL=label_num,
         transform=data_transforms['train'])
     transformed_datasets['valid'] = Datasets(
-        path_to_images=image_path,
+        path_to_images=imagepath,
         fold=args.valid_data,
         PRED_LABEL=label_num,
         transform=data_transforms['valid'])
     transformed_datasets['test'] = Datasets(
-        path_to_images=image_path,
+        path_to_images=imagepath,
         fold=args.test_data,
         PRED_LABEL=label_num,
         transform=data_transforms['valid'])
@@ -148,7 +148,7 @@ if __name__ == '__main__':
     parser.add_argument("--modelname", type=str, choices=["Thyroid_PF","Thyroid_PM","THYROID_TC","CXP_Age","CXP_Race","ISIC2019_Sex","ISIC2019_Age"], default="Thyroid_PF")
     parser.add_argument("--architecture", type=str, choices= ["resnet","densnet","efficientnet"], default="resnet")
     parser.add_argument("--modelload_path", type=str,  default= None)
-    parser.add_argument("--image_path", type=str,  default="./dataset/")
+    parser.add_argument("--imagepath", type=str,  default="./dataset/")
     parser.add_argument("--train_data", type=str, default='thyroid_train')
     parser.add_argument("--valid_data", type=str, default='thyroid_valid')
     parser.add_argument("--test_data", type=str, default='thyroid_test')
@@ -159,5 +159,4 @@ if __name__ == '__main__':
     parser.add_argument("--gamma_MMD", type=float, default=0.8)
     args = parser.parse_args()
     main(args)
-
    
