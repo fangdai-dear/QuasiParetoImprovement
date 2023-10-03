@@ -10,13 +10,13 @@ from alive_progress import alive_bar
 # import time
 class Thyroid_PF_Datasets(Dataset):
     def __init__(
-            self,
-            path_to_images,
-            fold,
-            PRED_LABEL,
-            transform=None,
-            sample=0,
-            finding="any"):
+        self,
+        path_to_images,
+        fold,
+        PRED_LABEL,
+        transform=None,
+        sample=0,
+        finding="any"):
         self.transform = transform
         self.path_to_images = path_to_images
         self.PRED_LABEL = PRED_LABEL
@@ -33,24 +33,19 @@ class Thyroid_PF_Datasets(Dataset):
             if str(X) is not None:
                 image = Image.open(os.path.join(self.path_to_images,str(X)))
                 image = image.convert('RGB')
-                label = np.zeros(len(self.PRED_LABEL), dtype=int)
+                label = np.zeros(len(self.PRED_LABEL), dtype=float)
                 for i in range(0, len(self.PRED_LABEL)):
                     if(self.df[self.PRED_LABEL[i].strip()].iloc[idx].astype('int') == 1):
                         label[i] = 1
                     else:
                         label[i] = 0
                 subg = np.zeros(2, dtype=int)
-                if(self.df["Sex".strip()].iloc[idx] == 'Female'):
-                    if(self.df["Age".strip()].iloc[idx].astype('int') > 80 and self.df["Sex".strip()].iloc[idx] == 'Female') or \
-                        (self.df["Age".strip()].iloc[idx].astype('int') < 40 and self.df["Sex".strip()].iloc[idx] == 'Female'):
-                        subg[0] = 1
-                        subg[1] = 0
-                    else:
-                        subg[0] = 0
-                        subg[1] = 1
-                else:
-                        subg[0] = 0
-                        subg[1] = 1
+                if(self.df["Subtype".strip()].iloc[idx] == 0): # maj: PTC sub=0
+                    subg[0] = 1
+                    subg[1] = 0
+                else:                                          # min: FTC sub=1
+                    subg[0] = 0
+                    subg[1] = 1
                 if self.transform:
                     image = self.transform(image)
                 return (image, label, subg)
@@ -58,13 +53,13 @@ class Thyroid_PF_Datasets(Dataset):
 
 class Thyroid_PM_Datasets(Dataset):
     def __init__(
-            self,
-            path_to_images,
-            fold,
-            PRED_LABEL,
-            transform=None,
-            sample=0,
-            finding="any"):
+        self,
+        path_to_images,
+        fold,
+        PRED_LABEL,
+        transform=None,
+        sample=0,
+        finding="any"):
         self.transform = transform
         self.path_to_images = path_to_images
         self.PRED_LABEL = PRED_LABEL
@@ -81,24 +76,19 @@ class Thyroid_PM_Datasets(Dataset):
             if str(X) is not None:
                 image = Image.open(os.path.join(self.path_to_images,str(X)))
                 image = image.convert('RGB')
-                label = np.zeros(len(self.PRED_LABEL), dtype=int)
+                label = np.zeros(len(self.PRED_LABEL), dtype=float)
                 for i in range(0, len(self.PRED_LABEL)):
                     if(self.df[self.PRED_LABEL[i].strip()].iloc[idx].astype('int') == 1):
                         label[i] = 1
                     else:
                         label[i] = 0
                 subg = np.zeros(2, dtype=int)
-                if(self.df["Sex".strip()].iloc[idx] == 'Female'):
-                    if(self.df["Age".strip()].iloc[idx].astype('int') > 80 and self.df["Sex".strip()].iloc[idx] == 'Female') or \
-                        (self.df["Age".strip()].iloc[idx].astype('int') < 40 and self.df["Sex".strip()].iloc[idx] == 'Female'):
-                        subg[0] = 1
-                        subg[1] = 0
-                    else:
-                        subg[0] = 0
-                        subg[1] = 1
-                else:
-                        subg[0] = 0
-                        subg[1] = 1
+                if(self.df["Subtype".strip()].iloc[idx] == 0): # maj: PTC sub=0
+                    subg[0] = 1
+                    subg[1] = 0
+                else:                                          # min: MTC sub=1
+                    subg[0] = 0
+                    subg[1] = 1
                 if self.transform:
                     image = self.transform(image)
                 return (image, label, subg)
@@ -106,13 +96,13 @@ class Thyroid_PM_Datasets(Dataset):
 
 class Thyroid_TC_Datasets(Dataset):
     def __init__(
-            self,
-            path_to_images,
-            fold,
-            PRED_LABEL,
-            transform=None,
-            sample=0,
-            finding="any"):
+        self,
+        path_to_images,
+        fold,
+        PRED_LABEL,
+        transform=None,
+        sample=0,
+        finding="any"):
         self.transform = transform
         self.path_to_images = path_to_images
         self.PRED_LABEL = PRED_LABEL
@@ -129,27 +119,23 @@ class Thyroid_TC_Datasets(Dataset):
             if str(X) is not None:
                 image = Image.open(os.path.join(self.path_to_images,str(X)))
                 image = image.convert('RGB')
-                label = np.zeros(len(self.PRED_LABEL), dtype=int)
+                label = np.zeros(len(self.PRED_LABEL), dtype=float)
                 for i in range(0, len(self.PRED_LABEL)):
                     if(self.df[self.PRED_LABEL[i].strip()].iloc[idx].astype('int') == 1):
                         label[i] = 1
                     else:
                         label[i] = 0
                 subg = np.zeros(2, dtype=int)
-                if(self.df["Sex".strip()].iloc[idx] == 'Female'):
-                    if(self.df["Age".strip()].iloc[idx].astype('int') > 80 and self.df["Sex".strip()].iloc[idx] == 'Female') or \
-                        (self.df["Age".strip()].iloc[idx].astype('int') < 40 and self.df["Sex".strip()].iloc[idx] == 'Female'):
-                        subg[0] = 1
-                        subg[1] = 0
-                    else:
-                        subg[0] = 0
-                        subg[1] = 1
-                else:
-                        subg[0] = 0
-                        subg[1] = 1
+                if(self.df["Subtype".strip()].iloc[idx] == 0): # maj: TH sub=0
+                    subg[0] = 1
+                    subg[1] = 0
+                else:                                          # min: CH sub=1
+                    subg[0] = 0
+                    subg[1] = 1
                 if self.transform:
                     image = self.transform(image)
                 return (image, label, subg)
+
 
 
 class CXP_Age_Datasets(Dataset):
@@ -187,14 +173,14 @@ class CXP_Age_Datasets(Dataset):
                 if(self.df["Sex".strip()].iloc[idx] == 'Female'):
                     if(self.df["Age".strip()].iloc[idx].astype('int') > 80 and self.df["Sex".strip()].iloc[idx] == 'Female') or \
                         (self.df["Age".strip()].iloc[idx].astype('int') < 40 and self.df["Sex".strip()].iloc[idx] == 'Female'):
+                        subg[0] = 0
+                        subg[1] = 1    # >80 and <40 is 0,1 minority
+                    else:
+                        subg[0] = 1    # 40< <80 is 1,0 majority 
+                        subg[1] = 0
+                else:
                         subg[0] = 1
                         subg[1] = 0
-                    else:
-                        subg[0] = 0
-                        subg[1] = 1
-                else:
-                        subg[0] = 0
-                        subg[1] = 1
                 if self.transform:
                     image = self.transform(image)
                 return (image, label, subg)
@@ -234,14 +220,14 @@ class CXP_Race_Datasets(Dataset):
                 subg = np.zeros(2, dtype=int)
                 if(self.df["Sex".strip()].iloc[idx] == 'Female'):
                     if(self.df["PRIMARY_RACE".strip()].iloc[idx] in ['Asian', 'Asian, Hispanic', 'Asian, non-Hispanic','Black or African American','Black, Hispanic', 'Black, non-Hispanic'] and self.df["Sex".strip()].iloc[idx] == 'Female'):
+                        subg[0] = 0
+                        subg[1] = 1    # 0,1minority
+                    else:
+                        subg[0] = 1    # 1,0 majority 
+                        subg[1] = 0
+                else:
                         subg[0] = 1
                         subg[1] = 0
-                    else:
-                        subg[0] = 0
-                        subg[1] = 1
-                else:
-                        subg[0] = 0
-                        subg[1] = 1
                 if self.transform:
                     image = self.transform(image)
                 return (image, label, subg)
@@ -280,11 +266,11 @@ class ISIC_Sex_Datasets(Dataset):
                         label[i] = 0
                 subg = np.zeros(2, dtype=int)
                 if(self.df["sex".strip()].iloc[idx] == 'female'):
-                    subg[0] = 1
-                    subg[1] = 0
-                else:
                     subg[0] = 0
                     subg[1] = 1
+                else:
+                    subg[0] = 1
+                    subg[1] = 0
                 if self.transform:
                     image = self.transform(image)
                 return (image, label, subg)
