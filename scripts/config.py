@@ -70,7 +70,7 @@ def Transforms(name):
             'train': transforms.Compose([
                 transforms.Resize(224),
                 transforms.CenterCrop(224),
-                transforms.RandomRotation(degrees=90),
+                transforms.RandomRotation(degrees=35),
                 transforms.RandomHorizontalFlip(),
                 transforms.ToTensor(),
                 transforms.Normalize([.5, .5, .5], [.5, .5, .5])
