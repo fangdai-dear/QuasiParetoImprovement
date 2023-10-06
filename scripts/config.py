@@ -61,20 +61,21 @@ def ISIC2019_Age():
 def Transforms(name):
     if name in ["Thyroid_PF","Thyroid_PM","THYROID_TC"]:
         data_transforms_ONE = {
-            'valid': transforms.Compose([
-                    transforms.Resize(224),
-                transforms.CenterCrop(224),
-                transforms.ToTensor(),
-                transforms.Normalize([.5, .5, .5], [.5, .5, .5])
-            ]),
-            'train': transforms.Compose([
-                transforms.Resize(224),
-                transforms.CenterCrop(224),
-                transforms.RandomRotation(degrees=35),
-                transforms.RandomHorizontalFlip(),
-                transforms.ToTensor(),
-                transforms.Normalize([.5, .5, .5], [.5, .5, .5])
-            ])
+          'valid': transforms.Compose([
+              transforms.ColorJitter(contrast=1.1, saturation=0.001),
+              transforms.Resize((224,224)),
+              transforms.ToTensor(),
+              transforms.Normalize([.5, .5, .5], [.5, .5, .5])
+          ]),
+          'train': transforms.Compose([
+              transforms.ColorJitter(contrast=1.1, saturation=0.001),
+              transforms.RandomCrop(256),
+              transforms.Resize(224),
+              transforms.RandomRotation(degrees=35),
+              transforms.RandomHorizontalFlip(),
+              transforms.ToTensor(),
+              transforms.Normalize([.5, .5, .5], [.5, .5, .5])
+          ])
         }
         return data_transforms_ONE
     
