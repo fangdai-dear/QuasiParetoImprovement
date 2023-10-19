@@ -42,7 +42,7 @@ class DomainClassifier (nn.Module):
         self.relu2 = nn.ReLU()
         self.fc3 = nn.Linear(50, 20) 
         self.relu3 = nn.ReLU()
-        self.fc4 =  nn.Sequential(nn.Linear(20, 2), nn.Sigmoid())
+        self.fc4 =  nn.Sequential(nn.Linear(20, num_classes), nn.Sigmoid())
     
     def forward(self, x):
         x1 = self.fc1(x)
