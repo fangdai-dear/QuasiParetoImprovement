@@ -8,7 +8,7 @@ import os
 from torchvision import datasets, transforms
 import random
 import sys
-from torch_cka import CKA
+from cka import CKA
 import numpy as np
 import torch.nn as nn
 import matplotlib.pyplot as plt
