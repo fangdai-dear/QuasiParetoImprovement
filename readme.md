@@ -1,5 +1,5 @@
-### Quasi-Pareto Improvement
-# Enhancing the Generalizability and Fairness of Ultrasonographical AI Model among Heterogeneous Thyroid Nodule Population by a Novel Quasi-Pareto Improvement
+# Quasi-Pareto Improvement
+## Enhancing the Generalizability and Fairness of Ultrasonographical AI Model among Heterogeneous Thyroid Nodule Population by a Novel Quasi-Pareto Improvement
 
 Siqiong Yao, Fang Dai, Peng Sun, Weituo Zhang, Biyun Qian, Hui Lu
 
