@@ -119,5 +119,5 @@ If you use our code and any information in your research, please consider citing
 All references are listed in the article
 
 ## Licence
-![License](https://github.com/fangdai-dear/QuasiParetoImprovement/blob/master/LICENSE)
+[Licence](https://github.com/fangdai-dear/QuasiParetoImprovement/blob/master/LICENSE)
 
