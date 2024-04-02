@@ -17,7 +17,7 @@ For details, see[[Nature Communications Paper](https://www.nature.com/articles/s
 This repository contains:
 
 1.   This is a code for the work being submitted, we provide only a brief description
-2.   This includes model structure, training code, and partial data
+2.   This includes model structure, training code
 
 ## Table of Contents
 
