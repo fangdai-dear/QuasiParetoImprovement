@@ -100,7 +100,7 @@ $ sh ./main.sh
 │      ISIC_2019_Training_sex.csv
 │      ISIC_2019_valid.csv
 ```
-# Citing
+## Citing
 If you use our code in your research, please consider citing with the following BibTex.
 ```text
 @article{yao2024enhancing,
