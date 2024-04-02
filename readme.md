@@ -9,9 +9,8 @@ Imbalanced subgroups are widely prevalent in medical applications, caused by ins
 
 The Quasi-Pareto Improvement method can be broadly applied to imbalanced subgroup prediction problems in biomedical imaging, providing new insights for enhancing model generalization and addressing unfairness.
 
-Cite this article:
-[[Nature Communications Paper](https://www.nature.com/articles/s41467-024-44906-y#citeas)]
-Yao, S., Dai, F., Sun, P. et al. Enhancing the fairness of AI prediction models by Quasi-Pareto improvement among heterogeneous thyroid nodule population. Nat Commun 15, 1958 (2024). https://doi.org/10.1038/s41467-024-44906-y
+For details, see[[Nature Communications Paper](https://www.nature.com/articles/s41467-024-44906-y#citeas)].
+
 
 ![https://github.com/fangdai-dear/QuasiParetoImprovement/scripts/Figure/figure2.png](https://github.com/fangdai-dear/QuasiParetoImprovement/blob/8ca0df7baecf650baec5305c55bd0758843bf94c/scripts/Figure/figure.png)
 
@@ -101,13 +100,20 @@ $ sh ./main.sh
 │      ISIC_2019_Training_sex.csv
 │      ISIC_2019_valid.csv
 ```
-### Enhancements
-
-- [ ] The model schema diagram is updated later
-- [ ] Experimental results will be updated later
+If you use our code in your research, please consider citing with the following BibTex.
+```text
+@article{yao2024enhancing,
+  title={Enhancing the fairness of AI prediction models by Quasi-Pareto improvement among heterogeneous thyroid nodule population},
+  author={Yao, Siqiong and Dai, Fang and Sun, Peng and Zhang, Weituo and Qian, Biyun and Lu, Hui},
+  journal={Nature Communications},
+  volume={15},
+  number={1},
+  pages={1--13},
+  year={2024},
+  publisher={Nature Publishing Group}
+}
+```
 
 ## Reference
 All references are listed in the article
 
-## License
-No License
