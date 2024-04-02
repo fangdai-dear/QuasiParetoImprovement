@@ -6,9 +6,9 @@ Siqiong Yao, Fang Dai, Peng Sun, Weituo Zhang, Biyun Qian, Hui Lu
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 ### Abstract
-```text
+
 Artificial Intelligence (AI) models for medical diagnosis often face challenges of generalizability and fairness. We highlighted the algorithmic unfairness in a large thyroid ultrasound dataset with significant diagnostic performance disparities across subgroups linked causally to sample size imbalances. To address this, we introduced the Quasi-Pareto Improvement (QPI) approach and a deep learning implementation (QP-Net) combining multi-task learning and domain adaptation to improve model performance among disadvantaged subgroups without compromising overall population performance. On the thyroid ultrasound dataset, our method significantly mitigated the area under curve (AUC) disparity for three less-prevalent subgroups by 0.213, 0.112, and 0.173 while maintaining the AUC for dominant subgroups; we also further confirmed the generalizability of our approach on two public datasets: the ISIC2019 skin disease dataset and the CheXpert chest radiograph dataset. Here we show the QPI approach to be widely applicable in promoting AI for equitable healthcare outcomes.
-```
+
 
 For details, see[[Nature Communications Paper](https://www.nature.com/articles/s41467-024-44906-y#citeas)].
 
