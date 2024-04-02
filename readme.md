@@ -9,6 +9,9 @@ Imbalanced subgroups are widely prevalent in medical applications, caused by ins
 
 The Quasi-Pareto Improvement method can be broadly applied to imbalanced subgroup prediction problems in biomedical imaging, providing new insights for enhancing model generalization and addressing unfairness.
 
+Cite this article
+Yao, S., Dai, F., Sun, P. et al. Enhancing the fairness of AI prediction models by Quasi-Pareto improvement among heterogeneous thyroid nodule population. Nat Commun 15, 1958 (2024). https://doi.org/10.1038/s41467-024-44906-y
+
 ![https://github.com/fangdai-dear/QuasiParetoImprovement/scripts/Figure/figure2.png](https://github.com/fangdai-dear/QuasiParetoImprovement/blob/8ca0df7baecf650baec5305c55bd0758843bf94c/scripts/Figure/figure.png)
 
 This repository contains:
@@ -106,4 +109,4 @@ $ sh ./main.sh
 All references are listed in the article
 
 ## License
-No License and copyrighted until work publication
+No License
