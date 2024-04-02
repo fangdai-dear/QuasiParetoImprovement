@@ -30,7 +30,7 @@ This repository contains:
 
 ## Model architecture
 
-![https://github.com/fangdai-dear/QuasiParetoImprovement/scripts/Figure/figure2.png](https://github.com/fangdai-dear/QuasiParetoImprovement/scripts/Figure/figure2.png)
+![figure2](https://github.com/fangdai-dear/QuasiParetoImprovement/blob/master/scripts/Figure/figure2.png)
 
 
 ## Install
