@@ -114,7 +114,8 @@ If you use our code and any information in your research, please consider citing
   publisher={Nature Publishing Group}
 }
 ```
-
+These authors contributed equally: Siqiong Yao, Fang Dai
+E-mail: huilu@sjtu.edu.cn
 ## Reference
 All references are listed in the article
 
