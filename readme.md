@@ -42,6 +42,13 @@ $ pip install -r requirements.txt
 ```
 
 ## Datasets
+1. We have shared part of the thyroid ultrasound dataset for verification. Please refer to this article for other studies using this dataset.
+```sh
+├─Thyroid
+    └─PTC
+    └─FTC
+    └─MTC
+```
 1. MICCAI 2020 TN-SCUI ultrasound image dataset (This study took into account the clinical significance of the contest and segmented according to the data segmentation style of the contest)
 ```sh
 ├─Thyroid
