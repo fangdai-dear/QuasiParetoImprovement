@@ -49,7 +49,7 @@ $ pip install -r requirements.txt
     └─FTC
     └─MTC
 ```
-1. MICCAI 2020 TN-SCUI ultrasound image dataset (This study took into account the clinical significance of the contest and segmented according to the data segmentation style of the contest)
+2. MICCAI 2020 TN-SCUI ultrasound image dataset (This study took into account the clinical significance of the contest and segmented according to the data segmentation style of the contest)
 ```sh
 ├─Thyroid
     └─TNS
@@ -60,7 +60,7 @@ $ pip install -r requirements.txt
         │  ├─0
         │  └─1
 ```
-2. Chexpert chest radiograph multi-classification dataset
+3. Chexpert chest radiograph multi-classification dataset
 ```sh
 ├─CheXpert-v1.0
 │  ├─train
@@ -73,7 +73,7 @@ $ pip install -r requirements.txt
 │          └─study1
 │                  view1_frontal.jpg
 ```
-3. ISIC2019 skin disease multi-classification dataset
+4. ISIC2019 skin disease multi-classification dataset
 ```     sh              
 ├─ISIC
 │  ├─ISIC_2018
