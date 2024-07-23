@@ -9,12 +9,16 @@ from sklearn.metrics import hamming_loss
 from sklearn.metrics import roc_auc_score
 import pandas as pd
 from random import sample
+import numpy as np
+from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, recall_score, f1_score
 
-# np.set_printoptions(threshold='nan')
+import warnings
+warnings.filterwarnings("ignore")
+
 class Metric(object):
     def __init__(self,output,label):
-        self.output = output   #prediction label matric
-        self.label = label    #true  label matric
+        self.output = output   
+        self.label = label    
  
     def accuracy_subset(self,threash=0.5):
         y_pred =self.output
@@ -60,35 +64,40 @@ class Metric(object):
         return f1_score(np.argmax(y_pred,1),np.argmax(y_true,1),average=type)
     
     def auROC(self):
-        y_pred =self.output
-        y_true = self.label
-        row,col = y_true.shape
-        temp = []
-        ROC = 0
-        for i in range(col):
+        n_classes = self.label.shape[1]
+        y_true= self.label
+        y_pred_proba=self.output
+        n_classes = y_true.shape[1]
+        auc_scores = []
+        for i in range(n_classes):
             try:
-                ROC = roc_auc_score(y_true[:,i], y_pred[:,i], average='micro', sample_weight=None)
-            except:
-                ROC == 0.5  
-            temp.append(ROC)
-        for i in range(col):
-            ROC += float(temp[i])
-        return ROC/(col+1),temp
+                auc = roc_auc_score(y_true[:, i], y_pred_proba[:, i])
+                auc_scores.append(auc)
+            except ValueError:
+                auc_scores.append(np.nan)
+
+        macro_auc = np.nanmean(auc_scores)
+        class_counts = np.sum(y_true, axis=0)
+        weights = class_counts / np.sum(class_counts)
+        weighted_auc = np.nansum(auc_scores * weights)
+        if macro_auc == None:
+            macro_auc = 0.5
+
+        return weighted_auc, macro_auc
     
     def MacroAUC(self):
-        y_pred =self.output #num_instance*num_label
-        y_true = self.label #num_instance*num_label 
+        y_pred =self.output
+        y_true = self.label 
         num_instance,num_class =   y_pred.shape
-        count = np.zeros((num_class,1))   # store the number of postive instance'score>negative instance'score
-        num_P_instance =  np.zeros((num_class,1)) #number of positive instance for every label      
+        count = np.zeros((num_class,1))   
+        num_P_instance =  np.zeros((num_class,1))    
         num_N_instance =  np.zeros((num_class,1)) 
-        auc = np.zeros((num_class,1))  # for each label
+        auc = np.zeros((num_class,1))  
         count_valid_label = 0
         for  i in range(num_class): 
-            num_P_instance[i,0] = sum(y_true[:,i] == 1) #label,,test_target
+            num_P_instance[i,0] = sum(y_true[:,i] == 1) 
             num_N_instance[i,0] = num_instance - num_P_instance[i,0]
-            # exclude the label on which all instances are positive or negative,
-            # leading to num_P_instance(i,1) or num_N_instance(i,1) is zero
+
             if num_P_instance[i,0] == 0 or num_N_instance[i,0] == 0:
                 auc[i,0] = 0
                 count_valid_label = count_valid_label + 1
@@ -130,12 +139,7 @@ def bootstrap_auc(label, output, classes, bootstraps=5, fold_size=1000):
                 Label = np.concatenate((Label, np.array([X[b][1]])),axis=0)
             
 
-            # if "Throid" in modelname: 
             data_auc = roc_auc_score(Label,Output)
             statistics[c][i] = data_auc
-            # else:
-            #     myMetic = Metric(Output,Label)
-            #     AUROC1, auc = myMetic.auROC()
-            #     statistics[c][i] = AUROC1
+
     return statistics
-    
