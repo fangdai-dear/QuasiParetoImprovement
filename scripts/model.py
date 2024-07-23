@@ -30,15 +30,20 @@ def train_model(model, LabelPredictor, DomainClassifier,
                 optimizer, optimizer_label, optimizer_domain,
                 gam_d, gam_mmd, 
                 num_epochs, modelname, device):
-    VAL_auc,TEST_auc = 0, 0
     since = time.time()
-    train_loss_history, valid_loss_history, test_loss_history= [], [], []
-    train_maj_history, train_min_history, test_maj_history, test_min_history,train_auc_history, val_auc_history, test_auc_history = [], [], [], [], [], [], []
-    best_model_wts = copy.deepcopy(model.state_dict())
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
+    VAL_auc,TEST_auc = 0, 0
+    
+    
+    train_maj_history, train_min_history, test_maj_history, test_min_history,train_auc_history, val_auc_history, test_auc_history, \
+    train_loss_history, valid_loss_history, test_loss_history, \
+    watch1_auc_history, watch2_auc_history =[], [], [], [], [], [], [], [], [], [], [], []
     V_AUC, T_AUC, G1  = [], [], []
+
+    best_model_wts = copy.deepcopy(model.state_dict())
     MMD = MMDLoss()
     BSS = BatchSpectralShrinkage()
+    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.8)
+
 
     for epoch in range(num_epochs):
         start = time.time()
@@ -56,12 +61,10 @@ def train_model(model, LabelPredictor, DomainClassifier,
             with tqdm(range(len(dataloaders[phase])),desc='%s' % phase, ncols=100) as t:
                 if Batch == 0 :
                     t.set_postfix(L = 0.000, G = 0.5, n = 0, S = "0")
-
                 for data in dataloaders[phase]:
                     inputs, labels, subg = data
                     inputs = Variable(inputs.to(device))
                     labels = Variable(labels.to(device)).float()
-                    print(labels)
                     subg = Variable(subg.to(device)).float()
                     optimizer.zero_grad(set_to_none=True) 
                     batch_size = inputs.shape[0]
@@ -70,66 +73,62 @@ def train_model(model, LabelPredictor, DomainClassifier,
                         outputs_512 = model(inputs)
                         outputs_out = LabelPredictor(outputs_512)
                         outputs_domain = DomainClassifier(outputs_512)
-                        try:
-                            if phase =='train':
-                                outputs_maj_img, outputs_maj_lab, sub_maj, outputs_min_img, outputs_min_lab, sub_min = Divide(outputs_out, labels, subg)
 
-                                if modelname in ['Thyroid_PF', 'Thyroid_PM','Thyroid_TC']:
-                                    data_auc_maj = roc_auc_score(outputs_maj_lab.cpu().detach().numpy(), outputs_maj_img.cpu().detach().numpy())
-                                    data_auc_min = roc_auc_score(outputs_min_lab.cpu().detach().numpy(), outputs_min_img.cpu().detach().numpy())
-                                else:
-                                    myMetic_maj = Metric(outputs_maj_img.cpu().detach().numpy(),outputs_maj_lab.cpu().detach().numpy())
-                                    data_auc_maj,auc = myMetic_maj.auROC()
-                                    myMetic_min = Metric(outputs_min_img.cpu().detach().numpy(),outputs_min_lab.cpu().detach().numpy())
-                                    data_auc_min,auc = myMetic_min.auROC()
+                        if phase =='train':
+                            outputs_maj_img, outputs_maj_lab, sub_maj, outputs_min_img, outputs_min_lab, sub_min = Divide(outputs_out, labels, subg)
 
-                                if data_auc_maj > data_auc_min :
-                                    loss_y_maj = criterion(outputs_maj_img, outputs_maj_lab).cuda()
-                                    loss_y_min = criterion(outputs_min_img, outputs_min_lab).cuda()
-                                    loss_d = criterion(outputs_domain, subg).cuda()
-                                    loss_mmd = MMD(subggroup = subg, outputs = outputs_512).cuda()
-                                    loss_bss = BSS(outputs_512).cuda()
-                                    loss_y = (gamma * loss_y_maj + (1-gamma) * loss_y_min).cuda()
-                                    gam_bss = 0.5
-
-                                    if loss_y > gam_d*loss_d:
-                                        Loss = loss_y - gam_d*loss_d +  gam_mmd * loss_mmd + gam_bss * loss_bss
-                                    else:
-                                        Loss =  loss_y + gam_mmd * loss_mmd + gam_bss * loss_bss
-                                        
-                                    if epoch == 0:
-                                        aucg = 0
-                                    else:
-                                        aucg = train_auc_history[-1]
-                                    x =  (float(data_auc_maj) - float(aucg)) / 0.05
-                                    gamma = 1. / (1 + np.exp(x))
-                                    G.append(gamma)
-                                    Loss_state = "QP"
-
-                                else: 
-                                    Loss = criterion(outputs_out, labels).cuda()
-                                    G.append(0)
-                                    Loss_state = "C"
-
-                                optimizer.zero_grad(), optimizer_label.zero_grad(), optimizer_domain.zero_grad()
-                                Loss.backward()
-                                optimizer.step(), optimizer_label.step(), optimizer_domain.step()
-
+                            if modelname in ['Thyroid_PF', 'Thyroid_PM','Thyroid_TC']:
+                                data_auc_maj = roc_auc_score(outputs_maj_lab.cpu().detach().numpy(), outputs_maj_img.cpu().detach().numpy())
+                                data_auc_min = roc_auc_score(outputs_min_lab.cpu().detach().numpy(), outputs_min_img.cpu().detach().numpy())
                             else:
-                                with torch.no_grad():
-                                    Loss = criterion(outputs_out, labels).cuda()
-                                    Loss_state = "0"
-                        except:
-                            Loss = torch.tensor(0).cuda()
-                            Loss_state = "0"
-                            print()
-                            print("Error and loss = 0")
+                                myMetic_maj = Metric(outputs_maj_img.cpu().detach().numpy(),outputs_maj_lab.cpu().detach().numpy())
+                                data_auc_maj,auc = myMetic_maj.auROC()
+                                myMetic_min = Metric(outputs_min_img.cpu().detach().numpy(),outputs_min_lab.cpu().detach().numpy())
+                                data_auc_min,auc = myMetic_min.auROC()
+
+                            if data_auc_maj > data_auc_min :
+                                loss_y_maj = criterion(outputs_maj_img, outputs_maj_lab).cuda()
+                                loss_y_min = criterion(outputs_min_img, outputs_min_lab).cuda()
+                                loss_d = criterion(outputs_domain, subg).cuda()
+                                loss_mmd = MMD(subggroup = subg, outputs = outputs_512).cuda()
+                                loss_bss = BSS(outputs_512).cuda()
+                                loss_y = (gamma * loss_y_maj + (1-gamma) * loss_y_min).cuda()
+                                gam_bss = 0.05
+
+                                if loss_y > gam_d*loss_d:
+                                    Loss = loss_y - gam_d*loss_d +  gam_mmd * loss_mmd + gam_bss * loss_bss
+                                else:
+                                    Loss =  loss_y + gam_mmd * loss_mmd + gam_bss * loss_bss
+                                    
+                                if epoch == 0:
+                                    aucg = 0
+                                else:
+                                    aucg = train_auc_history[-1]
+                                x =  (float(data_auc_maj) - float(aucg)) / 0.05
+                                gamma = 1. / (1 + np.exp(x))
+                                G.append(gamma)
+                                Loss_state = "QP"
+
+                            else: 
+                                Loss = criterion(outputs_out, labels).cuda()
+                                G.append(0)
+                                Loss_state = "C"
+
+                            optimizer.zero_grad(), optimizer_label.zero_grad(), optimizer_domain.zero_grad()
+                            Loss.backward()
+                            optimizer.step(), optimizer_label.step(), optimizer_domain.step()
+
+                        else:
+                            with torch.no_grad():
+                                Loss = criterion(outputs_out, labels).cuda()
+                                Loss_state = "0"
                     running_loss += Loss.detach()
 
                     """
                     B:batch 
                     L:Loss
                     maj: Maj group AUC
+
                     min: Min group AUC
                     n: NVIDIA Memory used
                     """   
@@ -161,6 +160,7 @@ def train_model(model, LabelPredictor, DomainClassifier,
 
             if modelname in ['Thyroid_PF', 'Thyroid_PM','Thyroid_TC']:
                 data_auc = roc_auc_score(Label,Output)
+
                 data_auc_maj = roc_auc_score(Label_maj, Output_maj)
                 data_auc_min = roc_auc_score(Label_min, Output_min)                
                 epoch_loss = running_loss / Batch
@@ -177,8 +177,8 @@ def train_model(model, LabelPredictor, DomainClassifier,
             else:
                 myMetic = Metric(Output,Label)
                 data_auc,auc = myMetic.auROC()
-                data_auc_maj = Metric(Output_maj,Label_maj).auROC()
-                data_auc_min = Metric(Output_min,Label_min).auROC()
+                data_auc_maj = Metric(Output_maj,Label_maj).auROC()[0]
+                data_auc_min = Metric(Output_min,Label_min).auROC()[0]
                 epoch_loss = running_loss / Batch
                 statistics = bootstrap_auc(Label, Output, [0,1,2,3,4])
                 max_auc = np.max(statistics, axis=1).max()
@@ -187,9 +187,10 @@ def train_model(model, LabelPredictor, DomainClassifier,
                     G1.append(0)
                 elif phase == "train":
                     G1.append(sum(G)/len(G))
+
                 print('{} --> Num: {} Loss: {:.4f}  Gamma: {:.4f} AUROC: {:.4f} ({:.2f} ~ {:.2f}) (Maj {:.4f}, Min {:.4f})'.format(
                 phase, len(outputs_out), epoch_loss, G1[-1], data_auc, min_auc, max_auc, data_auc_maj, data_auc_min))
-
+            print()
             if phase == 'train':
                 train_loss_history.append(epoch_loss)
                 train_auc_history.append(data_auc)
@@ -206,22 +207,22 @@ def train_model(model, LabelPredictor, DomainClassifier,
                 test_maj_history.append(data_auc_maj)
                 test_min_history.append(data_auc_min)
                 best_index = test_auc_history.index(max(test_auc_history))
-                print()
+                if data_auc_min > 0.78:
+                    torch.save(model.state_dict(), './modelsaved/{}_auc_{}.pth'.format(modelname, data_auc_min))
+                # print()
                 print("Best result : train : {:.4f}, valid : {:.4f}, test : {:.4f}, test_maj : {:.4f}, test_min : {:.4f}".format(train_auc_history[best_index], 
                                                                                                                     val_auc_history[best_index], 
                                                                                                                     test_auc_history[best_index], 
                                                                                                                     test_maj_history[best_index], 
                                                                                                                     test_min_history[best_index]))
-                if modelname not in ['Thyroid_PF', 'Thyroid_PM','Thyroid_TC']:
-                    table = PrettyTable()
-                    table.add_column('Label', label_num)
-                    table.add_column('AUC', auc)
-                    print(table)
+
 
 
         scheduler.step()    
         print("learning rate = %.6f  time: %.1f sec" % (optimizer.param_groups[-1]['lr'], time.time() - start)) 
-        plotimage(train_auc_history, val_auc_history, test_maj_history, test_min_history, "AUC", modelname, gam_d, gam_mmd)        
+
+        plotimage(train_auc_history, val_auc_history, test_maj_history, test_min_history, "AUC", modelname, gam_d, gam_mmd)
+        plotimage(test_maj_history, test_min_history, test_maj_history, test_min_history, "Subtype", modelname, gam_d, gam_mmd)        
         plotimage(train_loss_history, valid_loss_history, test_loss_history, test_loss_history, "Loss", modelname, gam_d, gam_mmd)
         result_csv(train_auc_history, val_auc_history, test_auc_history, test_maj_history, test_min_history, modelname, gam_d, gam_mmd)
         plotimage(train_loss_history, valid_loss_history, test_loss_history, test_loss_history, "Loss", modelname, gam_d, gam_mmd)
