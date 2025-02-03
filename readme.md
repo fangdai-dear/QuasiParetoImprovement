@@ -24,6 +24,7 @@ This repository contains:
 - [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
+- [Data](#data)
 - [Enhancements](#enhancements)
 - [Reference](#reference)
 - [License](#license)
@@ -42,6 +43,39 @@ $ pip install -r requirements.txt
 ```
 
 ## Datasets
+```
+All data that fueled the findings can be found within the article and the Supplementary Information. The Thyroid datasets trained and analyzed during this study are available in a deidentified form to protect patient privacy. The minimum Thyroid dataset required to interpret, verify, and extend the findings of this study has been deposited in Huggingface under accession code https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images. This includes:
+- Pre-processed imaging data (ultrasound images with anonymized metadata).
+- Clinical feature tables (age, gender, tumor size) with all direct identifiers removed.
+Due to ethical restrictions and patient confidentiality agreements, the full dataset (e.g., raw imaging data, detailed clinical records) cannot be made publicly available. This pertains to detailed clinical records and high-resolution imaging data that, even after de-identification, may pose a risk of re-identification given the unique characteristics of thyroid cancer cases. Researchers who wish to access additional data for non-commercial academic purposes may submit a formal request to the corresponding author. Requests will be reviewed by the institutional ethics committee and data custodians. The following conditions apply:
+- Purpose: Data will only be shared for research purposes that align with the original study objectives. 
+- Access Restrictions: Requesters must sign a data use agreement prohibiting re-identification or redistribution.
+- Data Retention: Approved data will be available for 2 years from the date of publication.
+```
+
+This dataset contains 900 thyroid ultrasound images, categorized into three subtypes of thyroid carcinoma:
+- PTC (Papillary Thyroid Carcinoma) 
+- FTC (Follicular Thyroid Carcinoma) 
+- MTC (Medullary Thyroid Carcinoma) 
+The dataset is curated to support medical image classification and segmentation tasks, particularly for deep learning applications in thyroid cancer diagnosis.
+It is curated to support **medical image classification **, particularly for AI applications in thyroid cancer diagnosis.
+
+## Citation
+
+If you use this dataset in your research, please cite the following references:
+
+### **Dataset Reference**
+```bibtex
+@article{yao2024enhancing,
+  title={Enhancing the fairness of AI prediction models by Quasi-Pareto improvement among heterogeneous thyroid nodule population},
+  author={Yao, Siqiong and Dai, Fang and Sun, Peng and Zhang, Weituo and Qian, Biyun and Lu, Hui},
+  journal={Nature Communications},
+  volume={15},
+  number={1},
+  pages={1958},
+  year={2024},
+  publisher={Nature Publishing Group UK London}
+}
 1. We have shared part of the thyroid ultrasound dataset for verification. Please refer to this article for other studies using this dataset.
 ```sh
 ├─Thyroid
