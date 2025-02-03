@@ -43,6 +43,7 @@ $ pip install -r requirements.txt
 ```
 
 ## Datasets
+A portion of the data from this article is publicly available on Huggingface ([dataset address](https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images). Please read the following information for data usage permissions and the conditions for accessing the full dataset.
 ```
 All data that fueled the findings can be found within the article and the Supplementary Information. The Thyroid datasets trained and analyzed during this study are available in a deidentified form to protect patient privacy. The minimum Thyroid dataset required to interpret, verify, and extend the findings of this study has been deposited in Huggingface under accession code https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images. This includes:
 - Pre-processed imaging data (ultrasound images with anonymized metadata).
