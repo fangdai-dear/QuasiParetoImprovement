@@ -24,7 +24,7 @@ This repository contains:
 - [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
-- [Data](#data)
+- [Data](#Datasets)
 - [Enhancements](#enhancements)
 - [Reference](#reference)
 - [License](#license)
@@ -60,11 +60,11 @@ This dataset contains 900 thyroid ultrasound images, categorized into three subt
 The dataset is curated to support medical image classification and segmentation tasks, particularly for deep learning applications in thyroid cancer diagnosis.
 It is curated to support **medical image classification **, particularly for AI applications in thyroid cancer diagnosis.
 
-## Citation
 
+1. We have shared part of the thyroid ultrasound dataset for verification. Please refer to this article for other studies using this dataset.
 If you use this dataset in your research, please cite the following references:
 
-### **Dataset Reference**
+#### Citation
 ```bibtex
 @article{yao2024enhancing,
   title={Enhancing the fairness of AI prediction models by Quasi-Pareto improvement among heterogeneous thyroid nodule population},
@@ -76,13 +76,9 @@ If you use this dataset in your research, please cite the following references:
   year={2024},
   publisher={Nature Publishing Group UK London}
 }
-1. We have shared part of the thyroid ultrasound dataset for verification. Please refer to this article for other studies using this dataset.
-```sh
-├─Thyroid
-    └─PTC
-    └─FTC
-    └─MTC
 ```
+
+
 2. MICCAI 2020 TN-SCUI ultrasound image dataset (This study took into account the clinical significance of the contest and segmented according to the data segmentation style of the contest)
 ```sh
 ├─Thyroid
