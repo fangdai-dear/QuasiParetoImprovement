@@ -1,0 +1,38 @@
+name: Verify User Access  # 工作流名称
+
+on:
+  issue_comment:  # 触发条件：当用户在 Issue 里申请访问
+    types: [created]
+
+jobs:
+  verify-user:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check User Email Domain
+        id: check-user
+        run: |
+          COMMENT_USER="${{ github.event.comment.user.login }}"
+          USER_EMAIL=$(curl -s "https://api.github.com/users/${COMMENT_USER}" | jq -r '.email')
+          
+          # 允许的邮箱域名（示例：教育邮箱）
+          ALLOWED_DOMAINS=("edu.com" "university.edu")
+
+          # 获取邮箱域名
+          USER_DOMAIN=$(echo "$USER_EMAIL" | awk -F '@' '{print $2}')
+
+          if [[ " ${ALLOWED_DOMAINS[@]} " =~ " ${USER_DOMAIN} " ]]; then
+            echo "::set-output name=approved::true"
+            echo "✅ User $COMMENT_USER is approved."
+          else
+            echo "::set-output name=approved::false"
+            echo "❌ User $COMMENT_USER is NOT approved."
+          fi
+
+      - name: Grant Access to Private Repo
+        if: steps.check-user.outputs.approved == 'true'
+        run: |
+          curl -X PUT \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/YOUR_ORG/YOUR_REPO/collaborators/${{ github.event.comment.user.login }}" \
+          -d '{"permission":"read"}'
