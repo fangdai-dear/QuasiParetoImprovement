@@ -46,7 +46,7 @@ $ pip install -r requirements.txt
 1. We have shared part of the thyroid ultrasound dataset for verification. Please refer to this article for other studies using this dataset.
 If you use this dataset in your research, please cite the following references:
 A portion of the data from this article is publicly available on Huggingface ([https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images](https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images). To download this dataset, you must register on Hugging Face and sign our data usage application before gaining access.
-![figure3]
+![figure3]([scripts/Figure/](https://github.com/fangdai-dear/QuasiParetoImprovement/blob/master/scripts/Figure/image4.png)
 Please read the following information for data usage permissions and the conditions for accessing the full dataset.
 ```
 All data that fueled the findings can be found within the article and the Supplementary Information. The Thyroid datasets trained and analyzed during this study are available in a deidentified form to protect patient privacy. The minimum Thyroid dataset required to interpret, verify, and extend the findings of this study has been deposited in Huggingface under accession code https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images. This includes:
