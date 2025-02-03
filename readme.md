@@ -43,7 +43,11 @@ $ pip install -r requirements.txt
 ```
 
 ## Datasets
-A portion of the data from this article is publicly available on Huggingface ([https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images](https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images). Please read the following information for data usage permissions and the conditions for accessing the full dataset.
+1. We have shared part of the thyroid ultrasound dataset for verification. Please refer to this article for other studies using this dataset.
+If you use this dataset in your research, please cite the following references:
+A portion of the data from this article is publicly available on Huggingface ([https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images](https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images). To download this dataset, you must register on Hugging Face and sign our data usage application before gaining access.
+![figure3]
+Please read the following information for data usage permissions and the conditions for accessing the full dataset.
 ```
 All data that fueled the findings can be found within the article and the Supplementary Information. The Thyroid datasets trained and analyzed during this study are available in a deidentified form to protect patient privacy. The minimum Thyroid dataset required to interpret, verify, and extend the findings of this study has been deposited in Huggingface under accession code https://huggingface.co/datasets/FangDai/Thyroid_Ultrasound_Images. This includes:
 - Pre-processed imaging data (ultrasound images with anonymized metadata).
@@ -53,18 +57,12 @@ Due to ethical restrictions and patient confidentiality agreements, the full dat
 - Access Restrictions: Requesters must sign a data use agreement prohibiting re-identification or redistribution.
 - Data Retention: Approved data will be available for 2 years from the date of publication.
 ```
-
 This dataset contains 900 thyroid ultrasound images, categorized into three subtypes of thyroid carcinoma:
 - PTC (Papillary Thyroid Carcinoma) 
 - FTC (Follicular Thyroid Carcinoma) 
 - MTC (Medullary Thyroid Carcinoma) 
 The dataset is curated to support medical image classification and segmentation tasks, particularly for deep learning applications in thyroid cancer diagnosis.
 It is curated to support **medical image classification **, particularly for AI applications in thyroid cancer diagnosis.
-
-
-1. We have shared part of the thyroid ultrasound dataset for verification. Please refer to this article for other studies using this dataset.
-If you use this dataset in your research, please cite the following references:
-
 #### Citation
 ```bibtex
 @article{yao2024enhancing,
@@ -78,8 +76,6 @@ If you use this dataset in your research, please cite the following references:
   publisher={Nature Publishing Group UK London}
 }
 ```
-
-
 2. MICCAI 2020 TN-SCUI ultrasound image dataset (This study took into account the clinical significance of the contest and segmented according to the data segmentation style of the contest)
 ```sh
 ├─Thyroid
