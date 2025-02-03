@@ -63,7 +63,7 @@ This dataset contains 900 thyroid ultrasound images, categorized into three subt
 - FTC (Follicular Thyroid Carcinoma) 
 - MTC (Medullary Thyroid Carcinoma) 
 ##### The dataset is curated to support medical image classification and segmentation tasks, particularly for deep learning applications in thyroid cancer diagnosis.
-It is curated to support **medical image classification **, particularly for AI applications in thyroid cancer diagnosis.
+It is curated to support medical image classification, particularly for AI applications in thyroid cancer diagnosis.
 #### Citation
 ```bibtex
 @article{yao2024enhancing,
