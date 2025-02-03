@@ -137,16 +137,16 @@ $ sh ./main.sh
 ```
 ## Citing
 If you use our code and any information in your research, please consider citing with the following BibTex.
-```text
+```bibtex
 @article{yao2024enhancing,
   title={Enhancing the fairness of AI prediction models by Quasi-Pareto improvement among heterogeneous thyroid nodule population},
   author={Yao, Siqiong and Dai, Fang and Sun, Peng and Zhang, Weituo and Qian, Biyun and Lu, Hui},
   journal={Nature Communications},
   volume={15},
   number={1},
-  pages={1--13},
+  pages={1958},
   year={2024},
-  publisher={Nature Publishing Group}
+  publisher={Nature Publishing Group UK London}
 }
 ```
 
